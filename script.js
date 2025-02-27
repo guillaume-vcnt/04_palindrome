@@ -1,39 +1,53 @@
-const inputValidDate1 = "03/04/2001"; // true
-const inputValidDate2 = "03/14/2001"; // false
+const testDates = [
+  "01/06/1989", // TRUE DATE
+  "10/15/2015", // FALSE DATE
+  "20/09/2000/abc", // FALSE DATE
+  "18/abc/2008", // FALSE DATE
+  "11/02/2011", // TRUE PALINDROME
+  "05/10/2035", // FALSE PALINDROME
+];
 
-function isValidDate(d) {
-  const splitedDate = d.split("/");
-  console.log(splitedDate);
+function isValidDate(date) {
+  console.log("date =", date);
+  const splitedDate = date.split("/");
+  console.log("splited date =", splitedDate);
   if (splitedDate.length !== 3) {
-    console.log("notValidFormat");
+    console.log(splitedDate, "= is invalid format");
     return false;
+  } else {
+    console.log(splitedDate, "= is valid format");
   }
 
-  const day = parseInt(splitedDate[0]);
-  const month = parseInt(splitedDate[1]);
-  const year = parseInt(splitedDate[2]);
+  const day = parseInt(splitedDate[0], 10); // (base 10)
+  const month = parseInt(splitedDate[1], 10); // (base 10)
+  const year = parseInt(splitedDate[2], 10); // (base 10)
 
   if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
-    console.log("validType");
+    console.log(day, month, year, "= is valid type");
   } else {
-    console.log("notValidDate1");
+    console.log(day, month, year, "= is not valid type");
     return false;
   }
 
-  // Cette fonction ne gère pas les années bissextiles.
-  function maxDaysInMonth(m) {
-    console.log(m);
-    if (m === 2) {
-      return 28;
+  //Vérification des années bissextiles : Années bissextiles est divisible par 4 mais pas par 100 sauf si elle est aussi divisible par 400
+  function maxDaysInMonth(month, year) {
+    console.log("month =", month);
+    if (month === 2) {
+      if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+        return 29; // Année bissextile
+      } else {
+        return 28; // Année normale
+      }
     }
+
     if (
-      m === 1 ||
-      m === 3 ||
-      m === 5 ||
-      m === 7 ||
-      m === 8 ||
-      m === 10 ||
-      m === 12
+      month === 1 ||
+      month === 3 ||
+      month === 5 ||
+      month === 7 ||
+      month === 8 ||
+      month === 10 ||
+      month === 12
     ) {
       return 31;
     } else {
@@ -41,43 +55,40 @@ function isValidDate(d) {
     }
   }
 
-  const maxDays = maxDaysInMonth(month);
-  console.log(maxDays);
+  const resultMaxDaysInMonth = maxDaysInMonth(month, year);
+  console.log("max month =", resultMaxDaysInMonth);
 
   if (
     day >= 1 &&
-    day <= 31 &&
+    day <= resultMaxDaysInMonth &&
     month >= 1 &&
     month <= 12 &&
     year >= 999 &&
     year <= 9999
   ) {
-    console.log("isValidDate");
+    console.log(day, month, year, "= is valid date");
     return true;
   } else {
-    console.log("notValidDate2");
+    console.log(day, month, year, "= is not valid date");
     return false;
   }
 }
 
-const resultValidDate = isValidDate(inputValidDate1);
-console.log(resultValidDate);
-
-const inputPalindromeDate1 = "11/02/2011"; // true
-const inputPalindromeDate2 = "03/04/2001"; // false
-
-function isPalindrome(d2) {
-  const splitedDate = d2.split("/").join("");
+function isPalindrome(date) {
+  const splitedDate = date.split("/").join("");
   const reversedDate = splitedDate.split("").reverse().join("");
-  console.log(splitedDate);
-  console.log(reversedDate);
+  console.log("splited date =", splitedDate);
+  console.log("reversed date =", reversedDate);
   return splitedDate === reversedDate;
 }
 
-const resultPalindrome = isPalindrome(inputPalindromeDate1);
-console.log(resultPalindrome);
-
-function getNextPalindromes(x) {
+function start(date) {
+  const resultIsValidDate = isValidDate(date);
+  console.log("is valid date =", resultIsValidDate);
+  if (resultIsValidDate === true) {
+    const resultIsPalindrome = isPalindrome(date);
+    console.log("is Palindrome =", resultIsPalindrome);
+  }
 }
 
-getNextPalindromes(10);
+testDates.forEach(start); //testDates.forEach((date) => start(date));
