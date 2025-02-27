@@ -1,10 +1,9 @@
 const testDates = [
-  "01/06/1989", // TRUE DATE
   "10/15/2015", // FALSE DATE
   "20/09/2000/abc", // FALSE DATE
   "18/abc/2008", // FALSE DATE
-  "11/02/2011", // TRUE PALINDROME
-  "05/10/2035", // FALSE PALINDROME
+  "11/02/2011", // TRUE DATE PALINDROME
+  "05/10/2035", // FALSE DATE PALINDROME
 ];
 
 function isValidDate(date) {
@@ -29,32 +28,6 @@ function isValidDate(date) {
     return false;
   }
 
-  //Vérification des années bissextiles : Années bissextiles est divisible par 4 mais pas par 100 sauf si elle est aussi divisible par 400
-  function maxDaysInMonth(month, year) {
-    console.log("month =", month);
-    if (month === 2) {
-      if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
-        return 29; // Année bissextile
-      } else {
-        return 28; // Année normale
-      }
-    }
-
-    if (
-      month === 1 ||
-      month === 3 ||
-      month === 5 ||
-      month === 7 ||
-      month === 8 ||
-      month === 10 ||
-      month === 12
-    ) {
-      return 31;
-    } else {
-      return 30;
-    }
-  }
-
   const resultMaxDaysInMonth = maxDaysInMonth(month, year);
   console.log("max month =", resultMaxDaysInMonth);
 
@@ -71,6 +44,32 @@ function isValidDate(date) {
   } else {
     console.log(day, month, year, "= is not valid date");
     return false;
+  }
+}
+
+//Années bissextiles est divisible par 4 mais pas par 100 sauf si elle est aussi divisible par 400
+function maxDaysInMonth(month, year) {
+  console.log("month =", month);
+  if (month === 2) {
+    if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+      return 29; // Année bissextile
+    } else {
+      return 28; // Année normale
+    }
+  }
+
+  if (
+    month === 1 ||
+    month === 3 ||
+    month === 5 ||
+    month === 7 ||
+    month === 8 ||
+    month === 10 ||
+    month === 12
+  ) {
+    return 31;
+  } else {
+    return 30;
   }
 }
 
@@ -91,4 +90,4 @@ function start(date) {
   }
 }
 
-testDates.forEach(start); //testDates.forEach((date) => start(date));
+testDates.forEach(start);
