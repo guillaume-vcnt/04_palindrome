@@ -9,8 +9,6 @@ Les dates sont aux formats dd/mm/yyyy.
 
 État du projet : Terminé
 
-Nombre de participants : 1
-
 Technologies : JavaScript
 
 IDE : VSCode
